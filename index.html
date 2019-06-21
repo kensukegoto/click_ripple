@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    #content{
+      width: 960px;
+      margin: 0 auto;
+    }
+    header{
+      background-color: cyan;
+      height: 250px;
+    }
+    main{
+      background-color: pink;
+      min-height: 250px;
+    }
+    footer{
+      background-color: gray;
+      height: 250px;
+    }
+
+    .ripple{
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      border-radius: 100%;
+      pointer-events: none;
+      transform: scale(0);
+      opacity: 1;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <header>ヘッダー</header>
+    <main>メイン</main>
+    <footer>フッター</footer>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
