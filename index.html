@@ -14,18 +14,19 @@
       width: 960px;
       margin: 0 auto;
     }
-    header{
-      background-color: cyan;
-      height: 250px;
-    }
+
     main{
-      background-color: pink;
+      /* background-color: pink; */
       min-height: 250px;
     }
-    footer{
-      background-color: gray;
+
+    a{
+      display: block;
+      width: 100%;
       height: 250px;
+      border: 1px solid #ccc;
     }
+
 
     .ripple{
       width: 150px;
@@ -41,10 +42,36 @@
 </head>
 <body>
   <div id="content">
-    <header>ヘッダー</header>
-    <main>メイン</main>
-    <footer>フッター</footer>
+    <main>
+      <a class="linkA">リンクA</a>
+      <a class="linkB">リンクB</a>
+      <a class="linkC">リンクC</a>
+    </main>
   </div>
   <script src="index.js"></script>
+  <script>
+  
+  click_ripple([
+    {
+      target: '.linkA',  // 波紋イベントを登録する要素
+      color: 'blue', // 波紋の色
+      duration: 500, // アニメーションの時間（ミリ秒）
+      size: 150 // 波紋のサイズ（px）
+    },
+    {
+      target: '.linkB', 
+      color: 'yellow',
+      duration: 1000,
+      size: 150
+    },
+    {
+      target: '.linkC',
+      color: 'red',
+      duration: 300,
+      size: 300
+    }
+  ]);
+
+  </script>
 </body>
 </html>

@@ -1,38 +1,61 @@
+function click_ripple(arg){
 
-document.body.addEventListener('mousedown',function(e){
-  /**
-   * e.target クリックされた要素
-   * e.offsetX クリックされた要素の左上を基準にしたx
-   * e.offsetY クリックされた要素の左上を基準にしたy
-   */
-    var ripple = document.createElement('i');
-    ripple.classList.add('ripple');
-
-    var target = e.target;
-    var cssTarget = getComputedStyle(target,null);
+  arg.forEach(function(e){
     
-    var pos_prev = cssTarget.getPropertyValue('position'); // 最後に戻すため保存
-    var pos_after = (pos_prev !== 'static') ? pos_prev : 'relative';  
+    _add_event(e);
 
-    target.style.position = pos_after;
-    target.style.overflow = 'hidden';
+  });
+
+  function _add_event(e){
+    var targets = document.querySelectorAll(e.target);
+    targets.forEach(function(target){
+
+      target.style.overflow = 'hidden';
+      target.style.position = 'relative';
+      target.addEventListener('click',function(info){ // ei ... event info
+        _ripple_event(this,info,e);
+      },false);
+    });
+  }
+
+  function _ripple_event(target,info,e){
+
+    var x = info.offsetX;
+    var y = info.offsetY;
+    var color = e.color ? e.color : "yellow";
+    var duration = e.duration ? e.duration : 500;
+    var size = e.size ? e.size : 100;
+
+    var ripple = document.createElement('i');
+    var style = {
+      width: size + 'px',
+      height: size + 'px',
+      position: 'absolute',
+      top: (y - size/2) + 'px',
+      left: (x - size/2) + 'px',
+      borderRadius: '50%',
+      pointerEvents: 'none',
+      transform: 'scale(0)',
+      opacity: 1,
+      backgroundColor: color,
+      transition: 'opacity '+(duration/1000)+'s ease-out,transform '+(duration/1000)+'s ease-out'
+    };
+    for(var prop in style){
+      ripple.style[prop] = style[prop];
+    }
+
     target.appendChild(ripple);
-    var cssRipple = getComputedStyle(ripple,null);
-    var h_ripple = cssRipple.getPropertyValue('height').replace('px','');
-    var w_ripple = cssRipple.getPropertyValue('width').replace('px','');
- 
-    ripple.style.top = e.offsetY - (h_ripple/2) + 'px';
-    ripple.style.left = e.offsetX - (w_ripple/2) + 'px';
-    ripple.style.transition = 'opacity .5s ease-out,transform .5s ease-out';
-    // Point 
+
     setTimeout(function(){
       ripple.style.opacity = '0';
       ripple.style.transform = 'scale(2)';
     },0);
 
+
     setTimeout(function(){
       target.removeChild(ripple);
-      target.style.overflow = '';
     },500);
 
-})
+  }
+
+}
