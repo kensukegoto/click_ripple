@@ -5,7 +5,7 @@ function click_ripple(arg){
     _add_event(e);
 
   });
-
+  
   function _add_event(e){
     var targets = document.querySelectorAll(e.target);
     targets.forEach(function(target){
@@ -40,6 +40,7 @@ function click_ripple(arg){
       backgroundColor: color,
       transition: 'opacity '+(duration/1000)+'s ease-out,transform '+(duration/1000)+'s ease-out'
     };
+    
     for(var prop in style){
       ripple.style[prop] = style[prop];
     }
@@ -50,7 +51,6 @@ function click_ripple(arg){
       ripple.style.opacity = '0';
       ripple.style.transform = 'scale(2)';
     },0);
-
 
     setTimeout(function(){
       target.removeChild(ripple);
